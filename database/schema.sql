@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS projetos_design (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    cliente TEXT NOT NULL,
+    responsavel VARCHAR(100) NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pendente'
+    CHECK (status in ('andamento', 'pendente', 'aprovacao', 'ajuste', 'aprovado', 'finalzado')),
+    inicio DATE NOT NULL,
+    final DATE NOT NULL,
+    criado_em TIMESTAMPTZ NOT NULL DEFAULT now() 
+)
