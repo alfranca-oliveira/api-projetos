@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS projetos_design (
     responsavel VARCHAR(100) NOT NULL,
     status TEXT NOT NULL DEFAULT 'pendente'
     CHECK (status in ('andamento', 'pendente', 'aprovacao', 'ajuste', 'aprovado', 'finalzado')),
-    inicio DATE NOT NULL,
-    final DATE NOT NULL,
+    inicio DATE NULL,
+    final DATE NULL,
     criado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP 
 )
