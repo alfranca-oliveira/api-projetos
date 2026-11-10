@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS projetos_design (
     CHECK (status in ('andamento', 'pendente', 'aprovacao', 'ajuste', 'aprovado', 'finalzado')),
     inicio DATE NOT NULL,
     final DATE NOT NULL,
-    criado_em TIMESTAMPTZ NOT NULL DEFAULT now() 
+    criado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP 
 )
