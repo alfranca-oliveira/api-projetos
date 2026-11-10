@@ -53,12 +53,14 @@ A API estará disponível em `http://localhost:8080`.
 
 ## Endpoints
 
+Os exemplos usam `curl -i`, que mostra o código de status na primeira linha da resposta (por exemplo, `HTTP/1.1 201 Created`). Sem o `-i`, aparece só o JSON.
+
 ### Cadastrar um projeto
 
 `POST /projetos`
 
 ```bash
-curl -X POST http://localhost:8080/projetos \
+curl -i -X POST http://localhost:8080/projetos \
   -H "Content-Type: application/json" \
   -d '{"nome":"Landing page","cliente":"Estúdio Norte","responsavel":"Bruno Lima","status":"andamento","inicio":"2026-11-10","final":"2026-11-28"}'
 ```
@@ -87,7 +89,7 @@ Só `nome`, `cliente` e `responsavel` são obrigatórios. Se o `status` não for
 `GET /projetos`
 
 ```bash
-curl http://localhost:8080/projetos
+curl -i http://localhost:8080/projetos
 ```
 
 Resposta `200 OK` com a lista em `dados`, do mais recente para o mais antigo.
@@ -97,7 +99,7 @@ Resposta `200 OK` com a lista em `dados`, do mais recente para o mais antigo.
 `GET /projetos/{id}`
 
 ```bash
-curl http://localhost:8080/projetos/2
+curl -i http://localhost:8080/projetos/2
 ```
 
 Resposta `200 OK` com o projeto, ou `404 Not Found` se o ID não existir.
@@ -179,4 +181,4 @@ Usei o Claude como apoio em três momentos:
 - **Consulta durante o desenvolvimento:** tirei dúvidas sobre como validar as datas (formato e data final posterior à de início) e o status com uma lista de valores aceitos. Adaptei as sugestões ao projeto e testei cada caso.
 - **Revisão e documentação:** a IA revisou o código, apontou erros que corrigi, criou os dados de exemplo e redigiu este README a partir do meu código. Executei todos os comandos para confirmar que funcionam.
 
-A modelagem do banco, a estrutura do projeto e o restante do código foram feitos por mim.
+A modelagem do banco, a estrutura do projeto e o restante do código foram feitos por mim baseados nos estudos.
