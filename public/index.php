@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/../src/Database.php';
-require_once __DIR__.'/../src/Reposta.php';
+require_once __DIR__.'/../src/Resposta.php';
 require_once __DIR__.'/../src/ProjetosRepository.php';
 require_once __DIR__.'/../src/ProjetosController.php';
 

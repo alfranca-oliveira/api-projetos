@@ -3,10 +3,10 @@
 class ProjetosController{
 
     private ProjetosRepository $repositorio;
-    private const STATUS_VALIDOS = ['andamento', 'pendente', 'aprovacao', 'ajuste', 'aprovado', 'finalzado'];
+    private const STATUS_VALIDOS = ['andamento', 'pendente', 'aprovacao', 'ajuste', 'aprovado', 'finalizado'];
 
-    public function __contruct(){
-        $this->$repositorio = new ProjetosRepository();
+    public function __construct(){
+        $this->repositorio = new ProjetosRepository();
     }
     //RETORNA TODA A LISTA DE PROJETOS EXISTENTE
     public function listar(): void{
@@ -18,10 +18,10 @@ class ProjetosController{
         $projeto = $this->repositorio->buscar($id);
 
         if($projeto === null){
-            Resposta:json(['erro' => 'Projeto não encontrado.'], 404);
+            Resposta::json(['erro' => 'Projeto não encontrado.'], 404);
         }
 
-        Resposta::json(['dados' => $projetos]);
+        Resposta::json(['dados' => $projeto]);
     }
 
     //RETORNA O CADASTRO DE UM NOVO PROJETO
@@ -57,26 +57,26 @@ class ProjetosController{
             } elseif (mb_strlen($valor) > 100) {
                 $erros[$campo] = 'Máximo de 100 caracteres.';
             }
+        }
 
-            //VALIDA FORMATO DATA E SE A DO FIM É MAIOR QUE A DO INICIO
-            if (!$this->dataValida($dados['data_inicio'] ?? null)) {
-                $erros['data_inicio'] = 'Use uma data válida no formato AAAA-MM-DD.';
+        //VALIDA FORMATO DATA E SE A DO FIM É MAIOR QUE A DO INICIO
+            if (isset($dados['inicio']) && !$this->dataValida($dados['inicio'])) {
+                $erros['inicio'] = 'Use uma data válida no formato AAAA-MM-DD.';
             }
 
-            if (isset($dados['data_fim']) && !$this->dataValida($dados['data_fim'])) {
-                $erros['data_fim'] = 'Use uma data válida no formato AAAA-MM-DD.';
+            if (isset($dados['final']) && !$this->dataValida($dados['final'])) {
+                $erros['final'] = 'Use uma data válida no formato AAAA-MM-DD.';
             }
 
-            if (!isset($erros['data_inicio']) && !isset($erros['data_fim'])
-                && isset($dados['data_fim']) && $dados['data_fim'] < $dados['data_inicio']) {
-                $erros['data_fim'] = 'A data de fim não pode ser anterior à data de início.';
+            if (!isset($erros['inicio']) && !isset($erros['final'])
+            && isset($dados['inicio'], $dados['final']) && $dados['final'] < $dados['inicio']) {
+                $erros['final'] = 'A data final não pode ser anterior à data de início.';
             }
 
             //ACEITA SÓ OS STATUS VALIDOS
             if (isset($dados['status']) && !in_array($dados['status'], self::STATUS_VALIDOS, true)) {
                 $erros['status'] = 'Status inválido. Use: ' . implode(', ', self::STATUS_VALIDOS) . '.';
             }
-        }
 
         return $erros;
     }
